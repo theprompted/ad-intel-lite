@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Intel Lite — Free Facebook Ad Research Skill for Claude Code</title>
+    <style>
+        :root {
+            --bg-page: #F8F8F7;
+            --bg-white: #ffffff;
+            --bg-blue: #EBF9FF;
+            --bg-purple: #F7F1FF;
+            --bg-yellow: #FFFDE7;
+            --bg-green: #E8F5E9;
+            --accent-teal: #53DBC9;
+            --accent-yellow: #FFDE00;
+            --accent-purple: #9D4EDD;
+            --text-black: #000000;
+            --text-dark: #1a1a1a;
+            --text-gray: #4a4a4a;
+            --text-muted: #6b6b6b;
+            --shadow-lg: -0.31rem 0.31rem 0 0 #383838;
+            --shadow-sm: -0.19rem 0.19rem 0 0 #383838;
+            --border: 2px solid black;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--bg-page);
+            padding: 2rem 1.5rem;
+        }
+
+        .container { max-width: 860px; margin: 0 auto; }
+
+        h1, h2, h3, h4 {
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+            font-weight: 700;
+            color: var(--text-black);
+        }
+
+        h1 { font-size: 2.25rem; line-height: 1.2; }
+        h2 { font-size: 1.35rem; }
+        h3 { font-size: 1.05rem; }
+        h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-gray); }
+
+        p { margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+
+        .card {
+            background: var(--bg-white);
+            border: var(--border);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1.75rem;
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: var(--border);
+            background: var(--bg-page);
+        }
+
+        .card-content { padding: 1.5rem; }
+
+        .code-block {
+            background: var(--text-dark);
+            color: var(--accent-teal);
+            border: var(--border);
+            padding: 1rem 1.25rem;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            white-space: pre-wrap;
+            word-break: break-all;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .copy-hint {
+            font-family: ui-monospace, monospace;
+            font-size: 0.7rem;
+            color: #888;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+        }
+
+        .code-block:hover .copy-hint { color: var(--accent-teal); }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-teal);
+            color: var(--text-black);
+            border: var(--border);
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            transition: transform 0.1s ease;
+        }
+
+        .btn:hover { transform: translate(2px, -2px); box-shadow: -0.4rem 0.4rem 0 0 #383838; }
+        .btn:active { transform: translate(-2px, 2px); box-shadow: -0.1rem 0.1rem 0 0 #383838; }
+
+        .btn-outline {
+            background: var(--bg-white);
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent-teal);
+            border: var(--border);
+            padding: 0.2rem 0.6rem;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .tag-free { background: var(--accent-teal); }
+        .tag-full { background: var(--accent-yellow); }
+
+        .num-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: var(--accent-teal);
+            border: var(--border);
+            border-radius: 50%;
+            font-family: ui-monospace, monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step {
+            background: var(--bg-blue);
+            border: var(--border);
+            padding: 1.25rem 1.5rem;
+            margin: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-family: ui-monospace, monospace;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .q-item {
+            background: var(--bg-page);
+            border: var(--border);
+            padding: 1rem;
+        }
+
+        .q-label {
+            font-family: ui-monospace, monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+
+        .q-text {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .q-item.locked {
+            opacity: 0.5;
+        }
+
+        .q-item.locked .q-label::after {
+            content: " — FULL VERSION";
+            color: var(--accent-purple);
+        }
+
+        .divider {
+            border: none;
+            border-top: var(--border);
+            margin: 1.75rem 0;
+        }
+
+        .upgrade-card {
+            background: var(--text-dark);
+            border: var(--border);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1.75rem;
+            padding: 2rem;
+            color: #fff;
+        }
+
+        .upgrade-card h2 {
+            color: var(--accent-teal);
+            margin-bottom: 0.75rem;
+        }
+
+        .upgrade-card p { color: #ccc; }
+
+        .upgrade-features {
+            margin: 1.25rem 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .upgrade-features li {
+            color: #ccc;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #333;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .upgrade-features li::before {
+            content: "+";
+            color: var(--accent-teal);
+            font-family: ui-monospace, monospace;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 2rem 0 1rem;
+        }
+
+        .footer a { color: var(--text-muted); }
+
+        .copied-msg {
+            display: none;
+            color: var(--accent-teal);
+            font-family: ui-monospace, monospace;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.6rem; }
+            .card-content { padding: 1.25rem; }
+            .q-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Header -->
+    <div class="card">
+        <div class="card-content">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                <div style="width:3rem;height:3rem;background:var(--accent-teal);border:var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🔍</div>
+                <span class="tag tag-free">FREE</span>
+            </div>
+            <h1>Ad Intel Lite</h1>
+            <p style="color:var(--text-muted);margin-top:0.5rem;font-size:1.1rem;">Facebook competitor research skill for Claude Code</p>
+            <hr class="divider">
+            <p>Most ad spy tools give you <strong>information</strong>. This gives you <strong>insight</strong>.</p>
+            <p>Instead of scrolling a library of ads and doing the analysis yourself, you run this skill and Claude Code comes back with a structured brief — what the brand is running, what hooks are working, who their customer is, what they believe about the problem, and what they never do across hundreds of ads.</p>
+            <p style="margin-bottom:0;">The brief is designed to be handed directly to your AI agent for creative production.</p>
+        </div>
+    </div>
+
+    <!-- What you get -->
+    <div class="card">
+        <div class="card-header"><h2>What's in the brief</h2></div>
+        <div class="card-content">
+            <div class="q-grid">
+                <div class="q-item">
+                    <div class="q-label">Q1</div>
+                    <div class="q-text">What are they running — and how much are they spending on each?</div>
+                </div>
+                <div class="q-item">
+                    <div class="q-label">Q2</div>
+                    <div class="q-text">What angles, formats, and ideas are they betting on?</div>
+                </div>
+                <div class="q-item">
+                    <div class="q-label">Q3</div>
+                    <div class="q-text">Who is the customer they're selling to?</div>
+                </div>
+                <div class="q-item">
+                    <div class="q-label">Q4</div>
+                    <div class="q-text">What do they believe about the customer and the problem?</div>
+                </div>
+                <div class="q-item">
+                    <div class="q-label">Q5</div>
+                    <div class="q-text">What hooks are working?</div>
+                </div>
+                <div class="q-item locked">
+                    <div class="q-label">Q6</div>
+                    <div class="q-text">What's the actual offer — price, guarantee, funnel structure?</div>
+                </div>
+                <div class="q-item" style="grid-column: span 2;">
+                    <div class="q-label">Q7</div>
+                    <div class="q-text">What do they never do — and what does that tell you about the buyer?</div>
+                </div>
+            </div>
+            <p style="margin-top:1.25rem;font-size:0.9rem;color:var(--text-muted);">Output is an HTML brief with a <strong>"Copy brief for your agent"</strong> button — one click puts the full analysis on your clipboard, ready to paste into Claude Code for creative production.</p>
+        </div>
+    </div>
+
+    <!-- How to install -->
+    <div class="card">
+        <div class="card-header"><h2>How to install it</h2></div>
+        <div class="card-content">
+            <p>You need <a href="https://claude.ai/code" style="color:var(--text-dark);font-weight:600;">Claude Code</a> installed. If you don't have it yet, get it at claude.ai/code — it's free to start.</p>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="num-badge">1</span>
+                    <span class="step-title">Paste this into Claude Code</span>
+                </div>
+                <div class="code-block" onclick="copyText(this, 'Go read this repo and install all skills and dependencies: https://github.com/theprompted/ad-intel-lite')">Go read this repo and install all skills and dependencies: https://github.com/theprompted/ad-intel-lite<span class="copy-hint">click to copy</span></div>
+                <div class="copied-msg" id="install-copied">✓ Copied</div>
+                <p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:0;">Claude Code reads the repo, installs the skill, and installs the one dependency it needs. You'll be ready to run in under a minute.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="num-badge">2</span>
+                    <span class="step-title">Run it on any brand</span>
+                </div>
+                <div class="code-block" onclick="copyText(this, 'Run an ad intel lite brief on [brand name]')">Run an ad intel lite brief on [brand name]<span class="copy-hint">click to copy</span></div>
+                <p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.5rem;margin-bottom:0;">Claude Code pulls the brand's live ads from the Facebook Ad Library, scores them by impression rank, and builds the HTML brief.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upgrade -->
+    <div class="upgrade-card">
+        <h2>Want the full version?</h2>
+        <p>The lite version covers six of the seven questions. The full version adds:</p>
+        <ul class="upgrade-features">
+            <li>Landing page analysis — the actual offer, price, guarantee, and funnel structure</li>
+            <li>Per-ad video breakdowns with frame-by-frame analysis</li>
+            <li>Whisper audio transcription of every hook</li>
+            <li>Contrast templates — 4 contrarian hooks built from inverting the brand's dominant angles</li>
+        </ul>
+        <p style="margin-bottom:1.5rem;">You can get access to the full version — along with everything else we ship — through our Syndicate.</p>
+        <a href="https://scale.theprompted.co" class="btn" target="_blank">Get full access →</a>
+    </div>
+
+    <div class="footer">
+        <p>Built by <a href="https://theprompted.co" target="_blank">The Prompted</a> &nbsp;·&nbsp; <a href="https://github.com/theprompted/ad-intel-lite" target="_blank">GitHub</a></p>
+    </div>
+
+</div>
+
+<script>
+function copyText(el, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const hint = el.querySelector('.copy-hint');
+        if (hint) { hint.textContent = '✓ copied'; }
+        setTimeout(() => { if (hint) hint.textContent = 'click to copy'; }, 2000);
+    });
+}
+</script>
+</body>
+</html>
