@@ -91,7 +91,7 @@ No FFmpeg frame extraction in lite. No Whisper audio transcription. The full ver
 
 ### Step 4 — Build the HTML brief
 
-Claude Code writes an HTML file with all seven sections. Same visual design as the full version — PromptedOS design system (teal `#53DBC9`, offset shadows, monospace headers, black borders). Visually indistinguishable from the full version, fewer sections.
+Claude Code writes an HTML file with all seven sections. Same visual design as the full version — The Prompted design system (teal `#53DBC9`, offset shadows, monospace headers, black borders). Visually indistinguishable from the full version, fewer sections.
 
 Output: `[brand-slug]-brief-lite.html`
 
